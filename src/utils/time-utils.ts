@@ -26,3 +26,30 @@ export function dateFilter(date: Date, template = "YYYY-MM-dd") {
   result = result.replace(/ss/g, ss);
   return result;
 }
+
+export function timestampToDays(t: number) {
+  if (t < 0) {
+    t = 0;
+  }
+
+  const secondMS = 1000;
+  const minuteMS = 60 * secondMS;
+  const hourMS = 60 * minuteMS;
+  const dayMS = 24 * hourMS;
+
+  const days = Math.floor(t / dayMS);
+  t = t - days * dayMS;
+  const hours = Math.floor(t / hourMS);
+  t = t - hours * hourMS;
+  const minutes = Math.floor(t / minuteMS);
+  t = t - minutes * minuteMS;
+  const seconds = Math.floor(t / secondMS);
+  const milliseconds = t - seconds * secondMS;
+  return {
+    days,
+    hours,
+    minutes,
+    seconds,
+    milliseconds,
+  };
+}
